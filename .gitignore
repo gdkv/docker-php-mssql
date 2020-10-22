@@ -1,0 +1,2 @@
+data/mssql-server/*
+!data/mssql-server/.gitkeep

@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/app
+      - ./configs/nginx.conf:/etc/nginx/conf.d/default.conf
+    restart: always
+    depends_on:
+      - php
+      - mssql
+  php:
+    image: php-pdo
+    build: ./configs/php/.
+    user: "www-data:www-data"
+    volumes:
+      - ./app:/var/www/app
+    restart: always
+        
+  mssql:
+    build: ./configs/mssql-server-server/.
+    container_name: mssql-se  
+    ports:
+      - "1433:1433"
+    volumes:
+      - "./data/mssql-server:/var/opt/mssql"
+      - "./backups:/backups"
+    environment:
+      - "ACCEPT_EULA=Y"
+      - "SA_PASSWORD=YourStrong!Passw0rd"
+    restart: always
+    networks:
+      mssql-server-net:
+        aliases:
+          - mssql-server
+
+networks:
+  mssql-server-net:
+      driver: bridge
