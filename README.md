@@ -1,7 +1,7 @@
 ### build
 
 ```
-docker-compose build --pull php-pdo
+docker-compose build
 ```
 
 ### up
