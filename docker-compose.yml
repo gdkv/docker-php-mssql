@@ -27,5 +27,6 @@ services:
     environment:
       SA_PASSWORD: "Supa!Passw0rd"
       ACCEPT_EULA: "Y"
+      MSSQL_COLLATION: "Cyrillic_General_CI_AS"
     ports:
         - 1433:1433
